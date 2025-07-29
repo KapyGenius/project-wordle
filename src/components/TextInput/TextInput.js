@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
 
-function TextInput({ guesses, setGuesses, gameOver, setGameOver, setSuccess, answer }) {
+function TextInput({ guesses, setGuesses, status, setStatus, answer }) {
   const [guess, setGuess] = useState('');
 
   function handleSubmit(event) {
@@ -11,11 +11,10 @@ function TextInput({ guesses, setGuesses, gameOver, setGameOver, setSuccess, ans
       setGuesses(nextGuesses);
     }
     if (guess.toUpperCase() == answer.toUpperCase()) {
-      setSuccess(true);
-      setGameOver(true);
+      setStatus('won');
     }
     if (nextGuesses.length >= NUM_OF_GUESSES_ALLOWED && guess !== answer) {
-      setGameOver(true);
+      setStatus('lost');
     }
     setGuess('');
   }
@@ -31,7 +30,7 @@ function TextInput({ guesses, setGuesses, gameOver, setGameOver, setSuccess, ans
         maxLength={5}
         title="Please enter a word of 5 letters"
         required
-        disabled={gameOver}
+        disabled={status != 'playing'}
         onChange={(event) => setGuess(event.target.value.toUpperCase())}
       />
     </form>
