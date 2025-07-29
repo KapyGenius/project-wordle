@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
 
 function TextInput({ guesses, setGuesses }) {
   const [guess, setGuess] = useState('');
@@ -6,7 +7,9 @@ function TextInput({ guesses, setGuesses }) {
   function handleSubmit(event) {
     event.preventDefault();
     console.log({ guess });
-    setGuesses([...guesses, { id: crypto.randomUUID(), value: guess }]);
+    if (guesses.length < NUM_OF_GUESSES_ALLOWED) {
+      setGuesses([...guesses, { id: crypto.randomUUID(), value: guess }]);
+    }
     setGuess('');
   }
   return (
