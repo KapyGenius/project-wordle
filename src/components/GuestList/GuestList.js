@@ -1,16 +1,13 @@
 import React from 'react';
+import { range } from '../../utils';
+import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
+import Guest from '../Guest/Guest';
 
 function GuestList({ guesses }) {
   return (
     <div className="guess-results">
-      {guesses.map((guess) => (
-        <p className="guess" key={guess.id}>
-          {guess.value.split('').map((letter, index) => (
-            <span key={index} className="cell">
-              {letter}
-            </span>
-          ))}
-        </p>
+      {range(NUM_OF_GUESSES_ALLOWED).map((num) => (
+        <Guest guess={guesses[num]} key={num} />
       ))}
     </div>
   );
